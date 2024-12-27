@@ -15,7 +15,8 @@ def ntzSym_regKMs(addon_keymaps):
     km = wm.keyconfigs.addon.keymaps.new(name="3D View Generic", space_type="VIEW_3D")
     
     kmi = km.keymap_items.new("ntz_sym.performsym", type = "F", ctrl=False, shift=False, alt=False, value = "PRESS")
-
+    kmi = km.keymap_items.new("ntzsym.slice_z", type = "F", ctrl=False, shift=False, alt=False, value = "PRESS")
+    
     #add list of keymaps
     addon_keymaps.append(km)
     '''
