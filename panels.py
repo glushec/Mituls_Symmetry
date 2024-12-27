@@ -117,60 +117,6 @@ class NTZSYM_PT_ntzsym(Panel):
         lay.separator(factor=sepFactor)
 
         # -----------------------------------------------------------------------------
-        #   SLICE
-        # ----------------------------------------------------------------------------- 
-        sliceRow = lay.row(align=True)  
-
-        sliceRowLabel = sliceRow.row(align=True)
-        sliceRowLabel.alignment="RIGHT"
-        sliceRowLabel.ui_units_x = labelWidth
-        sliceRowLabel.scale_y = labelHeight
-       
-        if not compactPanelConditions:  sliceRowLabel.label(text="Slice:")
-        else:                           sliceRowLabel.label(text="Slc:")
-        
-        if not compactPanelConditions:
-            sliceRow = sliceRow.box()
-
-        sliceRowButtons = sliceRow.grid_flow(align=True, columns=3, even_columns=True, even_rows=True)
-        sliceRowButtons.scale_y = 1
-
-        # X (Slice)
-        #------------------------------------------------------------------------------------------------------
-        
-        opRow = sliceRowButtons.grid_flow(align=True)
-        op = opRow.operator('ntz_sym.performsym', text='', icon_value=icons['xIcon'], emboss=emboss)
-        opProperties(op, "SLICE", "X")
-        op.tooltip = "Slice along the X axis"
-
-
-
-        # Y (Slice)
-        #------------------------------------------------------------------------------------------------------
-        
-        opRow = sliceRowButtons.grid_flow(align=True)
-        op = opRow.operator('ntz_sym.performsym', text='', icon_value=icons['yIcon'], emboss=emboss)
-        opProperties(op, "SLICE", "Y")
-        op.tooltip = "Slice along the Y axis"
-
-
-
-        # Z (Slice)
-        #------------------------------------------------------------------------------------------------------
-        
-        opRow = sliceRowButtons.grid_flow(align=True)
-        op = opRow.operator('ntz_sym.performsym', text='', icon_value=icons['zIcon'], emboss=emboss)
-        opProperties(op, "SLICE", "Z")
-        op.tooltip = "Slice along the Z axis"
-
-
-
-
-        lay.separator(factor=sepFactor)
-
-
-
-        # -----------------------------------------------------------------------------
         #   CUT
         # ----------------------------------------------------------------------------- 
         cutRow = lay.row(align=True)

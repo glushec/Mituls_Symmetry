@@ -702,8 +702,8 @@ class NTZSYM_OT_ntzperformsym(Operator):
 
 
         #final steps:
-        scn.cursor.location                     = self.cursorLocationAtInvoke
-        scn.tool_settings.transform_pivot_point = self.pivotPointTransformAtInvoke
+        scn.cursor.location                      = self.cursorLocationAtInvoke
+        #scn.tool_settings.transform_pivot_point = self.pivotPointTransformAtInvoke
 
         #final final step:
         self.wasInvoked = False
@@ -732,7 +732,6 @@ class NTZSYM_OT_ntzperformsym(Operator):
             self.operatorShowOptions = True
 
         self.cursorLocationAtInvoke = scn.cursor.location
-
         self.pivotPointTransformAtInvoke = scn.tool_settings.transform_pivot_point
     
         return self.execute(context)
@@ -745,18 +744,60 @@ class NTZSYM_OT_sliceX(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
     
     def execute(self, context):
-        print("Slicing on X axis")
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+
+        try:
+            bpy.ops.ntz_sym.performsym(
+                symType='SLICE',
+                axis='X',
+                cutLocation='DEFAULT',
+                cutRotation='DEFAULT'
+            )
+        except TypeError:
+            context.scene.tool_settings.transform_pivot_point = 'MEDIAN_POINT'
+            bpy.ops.ntz_sym.performsym(
+                symType='SLICE',
+                axis='X',
+                cutLocation='DEFAULT',
+                cutRotation='DEFAULT'
+            )
+        
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
         return {'FINISHED'}
 
+    def invoke(self, context, event):
+        return self.execute(context)
+
 class NTZSYM_OT_sliceY(bpy.types.Operator):
-    bl_idname = "ntzsym.slice_y"
+    bl_idname = "ntzsym.slice_y" 
     bl_label = "Slice Y"
     bl_description = "Slice object along Y axis"
     bl_options = {'REGISTER', 'UNDO'}
     
     def execute(self, context):
-        print("Slicing on Y axis")
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+
+        try:
+            bpy.ops.ntz_sym.performsym(
+                symType='SLICE',
+                axis='Y',
+                cutLocation='DEFAULT',
+                cutRotation='DEFAULT'
+            )
+        except TypeError:
+            context.scene.tool_settings.transform_pivot_point = 'MEDIAN_POINT'
+            bpy.ops.ntz_sym.performsym(
+                symType='SLICE',
+                axis='Y',
+                cutLocation='DEFAULT',
+                cutRotation='DEFAULT'
+            )
+        
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return self.execute(context)
 
 class NTZSYM_OT_sliceZ(bpy.types.Operator):
     bl_idname = "ntzsym.slice_z"
@@ -765,5 +806,29 @@ class NTZSYM_OT_sliceZ(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
     
     def execute(self, context):
-        print("Slicing on Z axis")
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+
+        try:
+            bpy.ops.ntz_sym.performsym(
+                symType='SLICE',
+                axis='Z',
+                cutLocation='DEFAULT',
+                cutRotation='DEFAULT'
+            )
+        except TypeError:
+            # Set default pivot point if None
+            context.scene.tool_settings.transform_pivot_point = 'MEDIAN_POINT'
+            # Retry operation
+            bpy.ops.ntz_sym.performsym(
+                symType='SLICE',
+                axis='Z',
+                cutLocation='DEFAULT',
+                cutRotation='DEFAULT'
+            )
+        
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
+
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return self.execute(context)
