@@ -33,7 +33,13 @@ from . main_ot import (
     NTZSYM_OT_cutY_Forward,
     NTZSYM_OT_cutY_Backward,
     NTZSYM_OT_cutZ_Forward,
-    NTZSYM_OT_cutZ_Backward
+    NTZSYM_OT_cutZ_Backward,
+    NTZSYM_OT_mirrorX_Forward,
+    NTZSYM_OT_mirrorX_Backward,
+    NTZSYM_OT_mirrorY_Forward,
+    NTZSYM_OT_mirrorY_Backward,
+    NTZSYM_OT_mirrorZ_Forward,
+    NTZSYM_OT_mirrorZ_Backward
 )
 
 from . import keymaps
@@ -66,6 +72,12 @@ classes = (
     NTZSYM_OT_cutY_Backward,
     NTZSYM_OT_cutZ_Forward,
     NTZSYM_OT_cutZ_Backward,
+    NTZSYM_OT_mirrorX_Forward,
+    NTZSYM_OT_mirrorX_Backward,
+    NTZSYM_OT_mirrorY_Forward,
+    NTZSYM_OT_mirrorY_Backward,
+    NTZSYM_OT_mirrorZ_Forward,
+    NTZSYM_OT_mirrorZ_Backward
 )
 
 # -----------------------------------------------------------------------------

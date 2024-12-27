@@ -31,6 +31,11 @@ class NTZSYM_PT_ntzsym(Panel):
         default = True
     )
 
+    @classmethod
+    def poll(cls, context):
+        obj = context.active_object
+        return obj and obj.type == 'MESH' and obj.mode == 'EDIT'
+
     def draw(self, context):
 
         scn = context.scene
@@ -110,14 +115,14 @@ class NTZSYM_PT_ntzsym(Panel):
         button_section = main_row.grid_flow(row_major=True, columns=3, even_columns=True, align=True)
         
         # Buttons
-        op1 = button_section.operator("ntzsym.slice_x", text='', icon_value=icons['xIcon'], emboss=True)
-        op2 = button_section.operator("ntzsym.slice_y", text='', icon_value=icons['yIcon'], emboss=True)
-        op3 = button_section.operator("ntzsym.slice_z", text='', icon_value=icons['zIcon'], emboss=True)
+        sop1 = button_section.operator("ntzsym.slice_x", text='', icon_value=icons['xIcon'], emboss=True)
+        sop2 = button_section.operator("ntzsym.slice_y", text='', icon_value=icons['yIcon'], emboss=True)
+        sop3 = button_section.operator("ntzsym.slice_z", text='', icon_value=icons['zIcon'], emboss=True)
         
         lay.separator(factor=sepFactor)
 
         # -----------------------------------------------------------------------------
-        #   NEW CUT BUTTONS
+        #   CUT
         # -----------------------------------------------------------------------------
         main_row = lay.row(align=True)
         main_row.scale_y = 1.5
@@ -132,171 +137,36 @@ class NTZSYM_PT_ntzsym(Panel):
         button_section = main_row.grid_flow(row_major=True, columns=6, even_columns=True, align=True)
         
         # Buttons
-        op4 = button_section.operator("ntzsym.cut_x_backward", text='', icon_value=icons['xIconLeft'], emboss=True)
-        op5 = button_section.operator("ntzsym.cut_x_forward", text='', icon_value=icons['xIconRight'], emboss=True)
-        op6 = button_section.operator("ntzsym.cut_y_backward", text='', icon_value=icons['yIconLeft'], emboss=True)
-        op7 = button_section.operator("ntzsym.cut_y_forward", text='', icon_value=icons['yIconRight'], emboss=True)
-        op8 = button_section.operator("ntzsym.cut_z_backward", text='', icon_value=icons['zIconLeft'], emboss=True)
-        op9 = button_section.operator("ntzsym.cut_z_forward", text='', icon_value=icons['zIconRight'], emboss=True)
+        cop1 = button_section.operator("ntzsym.cut_x_backward", text='', icon_value=icons['xIconLeft'], emboss=True)
+        cop2 = button_section.operator("ntzsym.cut_x_forward", text='', icon_value=icons['xIconRight'], emboss=True)
+        cop3 = button_section.operator("ntzsym.cut_y_backward", text='', icon_value=icons['yIconLeft'], emboss=True)
+        cop4 = button_section.operator("ntzsym.cut_y_forward", text='', icon_value=icons['yIconRight'], emboss=True)
+        cop5 = button_section.operator("ntzsym.cut_z_backward", text='', icon_value=icons['zIconLeft'], emboss=True)
+        cop6 = button_section.operator("ntzsym.cut_z_forward", text='', icon_value=icons['zIconRight'], emboss=True)
         
         lay.separator(factor=sepFactor)
 
         # -----------------------------------------------------------------------------
-        #   CUT
-        # ----------------------------------------------------------------------------- 
-        cutRow = lay.row(align=True)
-
-        cutRowLabel = cutRow.row(align=True)
-        cutRowLabel.alignment="RIGHT"
-        cutRowLabel.ui_units_x = labelWidth
-        cutRowLabel.scale_y = labelHeight
-        cutRowLabel.label(text="Cut:")
-
-        if not compactPanelConditions:
-            cutRow = cutRow.box()
-
-        cutRowButtons = cutRow.grid_flow(align=True, columns=3, even_columns=True, even_rows=True)
-        cutRowButtons.scale_y = 1
-
-        # X (Cut)
-        #------------------------------------------------------------------------------------------------------
+        #   NEW MIRROR BUTTONS
+        # -----------------------------------------------------------------------------
+        main_row = lay.row(align=True)
+        main_row.scale_y = 1.5
         
-
-        xColRow = cutRowButtons.grid_flow(align=True, columns=2, even_columns=True)
-
-        op = xColRow.operator('ntz_sym.performsym', text='', icon_value=icons['xIconLeft'], emboss=emboss)
-        opProperties(op, "CUT", "X", axisDir="BACKWARD")
-        op.tooltip = "Cut backward along the X axis"
-
-
-        op = xColRow.operator('ntz_sym.performsym', text='', icon_value=icons['xIconRight'], emboss=emboss)
-        opProperties(op, "CUT", "X", axisDir="FORWARD")
-        op.tooltip = "Cut forward along the X axis"
-
-
-        # Y (Cut)
-        #------------------------------------------------------------------------------------------------------
-
-        yColRow = cutRowButtons.grid_flow(align=True, columns=2, even_columns=True)
-
-        op = yColRow.operator('ntz_sym.performsym', text='', icon_value=icons['yIconLeft'], emboss=emboss)
-        opProperties(op, "CUT", "Y", axisDir="BACKWARD")
-        op.tooltip = "Cut backward along the Y axis"
-
-        op = yColRow.operator('ntz_sym.performsym', text='', icon_value=icons['yIconRight'], emboss=emboss)
-        opProperties(op, "CUT", "Y", axisDir="FORWARD")
-        op.tooltip = "Cut forward along the Y axis"
-
-        # Z (Cut)
-        #------------------------------------------------------------------------------------------------------
-
-        zColRow = cutRowButtons.grid_flow(align=True, columns=2, even_columns=True)
-
-        op = zColRow.operator('ntz_sym.performsym', text='', icon_value=icons['zIconLeft'], emboss=emboss)
-        opProperties(op, "CUT", "Z", axisDir="BACKWARD")
-        op.tooltip = "Cut backward along the Z axis"
-
-
-        op = zColRow.operator('ntz_sym.performsym', text='', icon_value=icons['zIconRight'], emboss=emboss)
-        opProperties(op, "CUT", "Z", axisDir="FORWARD")
-        op.tooltip = "Cut forward along the Z axis"
-
+        # Label section
+        label_section = main_row.row(align=True)
+        label_section.alignment = "RIGHT"
+        label_section.ui_units_x = labelWidth
+        label_section.label(text="Mirror:")
+        
+        # Button section
+        button_section = main_row.grid_flow(row_major=True, columns=6, even_columns=True, align=True)
+        
+        # Buttons
+        mop1 = button_section.operator("ntzsym.mirror_x_backward", text='', icon_value=icons['xIconLeft'], emboss=True)
+        mop2 = button_section.operator("ntzsym.mirror_x_forward", text='', icon_value=icons['xIconRight'], emboss=True)
+        mop3 = button_section.operator("ntzsym.mirror_y_backward", text='', icon_value=icons['yIconLeft'], emboss=True)
+        mop4 = button_section.operator("ntzsym.mirror_y_forward", text='', icon_value=icons['yIconRight'], emboss=True)
+        mop5 = button_section.operator("ntzsym.mirror_z_backward", text='', icon_value=icons['zIconLeft'], emboss=True)
+        mop6 = button_section.operator("ntzsym.mirror_z_forward", text='', icon_value=icons['zIconRight'], emboss=True)
+        
         lay.separator(factor=sepFactor)
-
-
-
-
-        # -----------------------------------------------------------------------------
-        #   MIRROR
-        # ----------------------------------------------------------------------------- 
-        mirrorRow = lay.row(align=True)
-
-        mirrorRowLabel = mirrorRow.row(align=True)
-        mirrorRowLabel.alignment = "RIGHT"
-        mirrorRowLabel.ui_units_x = labelWidth
-        mirrorRowLabel.scale_y = labelHeight
-
-        if not compactPanelConditions:  mirrorRowLabel.label(text="Mirror:")
-        else:                           mirrorRowLabel.label(text="Mir:")
-
-        if not compactPanelConditions:
-            mirrorRow = mirrorRow.box()
-
-        mirrorRowButtons = mirrorRow.grid_flow(align=True, columns=3, even_columns=True, even_rows=True)
-        mirrorRowButtons.scale_y = 1
-
-        # X (Mirror)
-        #------------------------------------------------------------------------------------------------------
-        xColRow = mirrorRowButtons.grid_flow(align=True, columns=2, even_columns=True)
-
-        op = xColRow.operator('ntz_sym.performsym', text='', icon_value=icons['xIconLeft'], emboss=emboss)
-        opProperties(op, "MIRROR", "X", axisDir="BACKWARD")
-        op.tooltip = "Mirror backward along the X axis.  CTRL+Click to keep mirror modifier"
-
-
-        op = xColRow.operator('ntz_sym.performsym', text='', icon_value=icons['xIconRight'], emboss=emboss)
-        opProperties(op, "MIRROR", "X", axisDir="FORWARD")
-        op.tooltip = "Mirror forward along the X axis.  CTRL+Click to keep mirror modifier"
-
-
-        # Y (Mirror)
-        #------------------------------------------------------------------------------------------------------
-        yColRow = mirrorRowButtons.grid_flow(align=True, columns=2, even_columns=True)
-
-        op = yColRow.operator('ntz_sym.performsym', text='', icon_value=icons['yIconLeft'], emboss=emboss)
-        opProperties(op, "MIRROR", "Y", axisDir="BACKWARD")
-        op.tooltip = "Mirror backward along the Y axis.  CTRL+Click to keep mirror modifier"
-
-
-        op = yColRow.operator('ntz_sym.performsym', text='', icon_value=icons['yIconRight'], emboss=emboss)
-        opProperties(op, "MIRROR", "Y", axisDir="FORWARD")
-        op.tooltip = "Mirror forward along the Y axis.  CTRL+Click to keep mirror modifier"
-
-        # Z (Mirror)
-        #------------------------------------------------------------------------------------------------------
-        zColRow = mirrorRowButtons.grid_flow(align=True, columns=2, even_columns=True)
-
-        op = zColRow.operator('ntz_sym.performsym', text='', icon_value=icons['zIconLeft'], emboss=emboss)
-        opProperties(op, "MIRROR", "Z", axisDir="BACKWARD")
-        op.tooltip = "Mirror backward along the Z axis.  CTRL+Click to keep mirror modifier"
-
-
-        op = zColRow.operator('ntz_sym.performsym', text='', icon_value=icons['zIconRight'], emboss=emboss)
-        opProperties(op, "MIRROR", "Z", axisDir="FORWARD")
-        op.tooltip = "Mirror forward along the Z axis.  CTRL+Click to keep mirror modifier"
-
-        # -----------------------------------------------------------------------------
-        #   APPLY / REMOVE Mirror Modifiers
-        # ----------------------------------------------------------------------------- 
-
-        
-        foundMirrorModifier = False #declare
-        for obj in selObjs:
-            if not foundMirrorModifier:
-                
-                #check if mirrorParent exists on empty or bisectPlane
-                mirrorParent = getattr(obj, "mirrorParent", None)
-
-                if mirrorParent is not None:
-                    foundMirrorModifier = True
-                    break
-                
-                #check if object has a mirror modifier
-                if miscFunc.findModifier(obj=obj, modifierType='MIRROR') is not None:
-                    foundMirrorModifier = True
-                    break
-
-
-        if foundMirrorModifier:
-            
-            lay.separator(factor=sepFactor)
-
-            row = lay.row(align=True)
-
-            op = row.operator('ntz_sym.applyorremovemodifier', text='Apply', icon="CHECKMARK")
-            op.method = "APPLY"
-            op.tooltip = "Apply any mirror and bisect (boolean) modifiers from the selected objects.  CTRL+Click to keep Empties & Bisect Planes"
-
-            op = row.operator('ntz_sym.applyorremovemodifier', text='Remove', icon="X")
-            op.method = "REMOVE"
-            op.tooltip = "Removes any mirror and bisect (boolean) modifiers from the selected objects.  CTRL+Click to keep Empties & Bisect Planes"

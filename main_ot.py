@@ -23,8 +23,6 @@ class NTZSYM_OT_ntzperformsym(Operator):
 
     tooltip : StringProperty(options={'HIDDEN'})
 
-    
-
     pivotPointTransformAtInvoke = None
 
     operatorShowOptions : BoolProperty (
@@ -179,7 +177,8 @@ class NTZSYM_OT_ntzperformsym(Operator):
 
     @classmethod
     def poll(cls, context):
-        return True
+        obj = context.active_object
+        return obj and obj.type == 'MESH' and obj.mode == 'EDIT'
 
     def draw(self, context):
         scn = context.scene
@@ -193,15 +192,9 @@ class NTZSYM_OT_ntzperformsym(Operator):
         propAlign = True
         labelJustify = "RIGHT"
 
-
-
-
         if self.operatorShowOptions:
 
             box = lay.box().column(align=True)
-            
-                
-                
 
             if self.symType in ['SLICE', 'CUT', 'MIRROR']:  
 
@@ -212,7 +205,6 @@ class NTZSYM_OT_ntzperformsym(Operator):
                 
                 miscLay.createProp(  self, context, None, True,                 True,                   False,      "Rotation",          self,    None,               "cutRotation",             scale_y, labelScale, propScale, labelAlign,    propAlignment,   propAlign,   "",          False,       1,             False,      None,                      box    )
                 
-            
 
             fillEnabled = False #declare
             if self.symType == "CUT":
@@ -919,6 +911,132 @@ class NTZSYM_OT_cutZ_Backward(bpy.types.Operator):
         initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
         bpy.ops.ntz_sym.performsym(
             symType='CUT',
+            axis='Z',
+            axisDir='BACKWARD',
+            cutLocation='DEFAULT',
+            cutRotation='DEFAULT'
+        )
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return self.execute(context)
+
+class NTZSYM_OT_mirrorX_Forward(bpy.types.Operator):
+    bl_idname = "ntzsym.mirror_x_forward"
+    bl_label = "Mirror X Forward"
+    bl_description = "Mirror object along X axis forward"
+    bl_options = {'REGISTER', 'UNDO'}
+    
+    def execute(self, context):
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+        bpy.ops.ntz_sym.performsym(
+            symType='MIRROR',
+            axis='X',
+            axisDir='FORWARD',
+            cutLocation='DEFAULT',
+            cutRotation='DEFAULT'
+        )
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return self.execute(context)
+
+class NTZSYM_OT_mirrorX_Backward(bpy.types.Operator):
+    bl_idname = "ntzsym.mirror_x_backward"
+    bl_label = "Mirror X Backward"
+    bl_description = "Mirror object along X axis backward"
+    bl_options = {'REGISTER', 'UNDO'}
+    
+    def execute(self, context):
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+        bpy.ops.ntz_sym.performsym(
+            symType='MIRROR',
+            axis='X',
+            axisDir='BACKWARD',
+            cutLocation='DEFAULT',
+            cutRotation='DEFAULT'
+        )
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return self.execute(context)
+
+class NTZSYM_OT_mirrorY_Forward(bpy.types.Operator):
+    bl_idname = "ntzsym.mirror_y_forward"
+    bl_label = "Mirror Y Forward"
+    bl_description = "Mirror object along Y axis forward"
+    bl_options = {'REGISTER', 'UNDO'}
+    
+    def execute(self, context):
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+        bpy.ops.ntz_sym.performsym(
+            symType='MIRROR',
+            axis='Y',
+            axisDir='FORWARD',
+            cutLocation='DEFAULT',
+            cutRotation='DEFAULT'
+        )
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return self.execute(context)
+
+class NTZSYM_OT_mirrorY_Backward(bpy.types.Operator):
+    bl_idname = "ntzsym.mirror_y_backward"
+    bl_label = "Mirror Y Backward"
+    bl_description = "Mirror object along Y axis backward"
+    bl_options = {'REGISTER', 'UNDO'}
+    
+    def execute(self, context):
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+        bpy.ops.ntz_sym.performsym(
+            symType='MIRROR',
+            axis='Y',
+            axisDir='BACKWARD',
+            cutLocation='DEFAULT',
+            cutRotation='DEFAULT'
+        )
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return self.execute(context)
+
+class NTZSYM_OT_mirrorZ_Forward(bpy.types.Operator):
+    bl_idname = "ntzsym.mirror_z_forward"
+    bl_label = "Mirror Z Forward"
+    bl_description = "Mirror object along Z axis forward"
+    bl_options = {'REGISTER', 'UNDO'}
+    
+    def execute(self, context):
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+        bpy.ops.ntz_sym.performsym(
+            symType='MIRROR',
+            axis='Z',
+            axisDir='FORWARD',
+            cutLocation='DEFAULT',
+            cutRotation='DEFAULT'
+        )
+        bpy.context.tool_settings.transform_pivot_point = initial_pivot_point
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return self.execute(context)
+
+class NTZSYM_OT_mirrorZ_Backward(bpy.types.Operator):
+    bl_idname = "ntzsym.mirror_z_backward"
+    bl_label = "Mirror Z Backward"
+    bl_description = "Mirror object along Z axis backward"
+    bl_options = {'REGISTER', 'UNDO'}
+    
+    def execute(self, context):
+        initial_pivot_point = bpy.context.tool_settings.transform_pivot_point
+        bpy.ops.ntz_sym.performsym(
+            symType='MIRROR',
             axis='Z',
             axisDir='BACKWARD',
             cutLocation='DEFAULT',
