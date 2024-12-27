@@ -111,7 +111,6 @@ class NTZSYM_PT_ntzsym(Panel):
         
         # Buttons
         op1 = button_section.operator("ntzsym.slice_x", text='', icon_value=icons['xIcon'], emboss=True)
-        opProperties(op1, "SLICE", "X")
         op2 = button_section.operator("ntzsym.slice_y", text='', icon_value=icons['yIcon'], emboss=True)
         op3 = button_section.operator("ntzsym.slice_z", text='', icon_value=icons['zIcon'], emboss=True)
         
