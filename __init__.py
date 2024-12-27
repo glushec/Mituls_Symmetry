@@ -24,10 +24,17 @@ from . panels               import NTZSYM_PT_ntzsym
 from . misc_ot              import NTZSYM_OT_NtzResetAllSettings
 from . misc_ot              import NTZSYM_OT_applyorremovemodifier
 
-from . main_ot              import NTZSYM_OT_sliceX
-from . main_ot              import NTZSYM_OT_sliceY
-from . main_ot              import NTZSYM_OT_sliceZ
-
+from . main_ot import (
+    NTZSYM_OT_sliceX,
+    NTZSYM_OT_sliceY,
+    NTZSYM_OT_sliceZ,
+    NTZSYM_OT_cutX_Forward,
+    NTZSYM_OT_cutX_Backward,
+    NTZSYM_OT_cutY_Forward,
+    NTZSYM_OT_cutY_Backward,
+    NTZSYM_OT_cutZ_Forward,
+    NTZSYM_OT_cutZ_Backward
+)
 
 from . import keymaps
 
@@ -53,6 +60,12 @@ classes = (
     NTZSYM_OT_sliceX,
     NTZSYM_OT_sliceY,
     NTZSYM_OT_sliceZ,
+    NTZSYM_OT_cutX_Forward,
+    NTZSYM_OT_cutX_Backward,
+    NTZSYM_OT_cutY_Forward,
+    NTZSYM_OT_cutY_Backward,
+    NTZSYM_OT_cutZ_Forward,
+    NTZSYM_OT_cutZ_Backward,
 )
 
 # -----------------------------------------------------------------------------

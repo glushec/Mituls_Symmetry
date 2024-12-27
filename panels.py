@@ -95,7 +95,7 @@ class NTZSYM_PT_ntzsym(Panel):
         else:                          labelHeight = 1
 
         # -----------------------------------------------------------------------------
-        #   New Horizontal Buttons
+        #   SLICE
         # -----------------------------------------------------------------------------
         main_row = lay.row(align=True)
         main_row.scale_y = 1.5
@@ -113,6 +113,31 @@ class NTZSYM_PT_ntzsym(Panel):
         op1 = button_section.operator("ntzsym.slice_x", text='', icon_value=icons['xIcon'], emboss=True)
         op2 = button_section.operator("ntzsym.slice_y", text='', icon_value=icons['yIcon'], emboss=True)
         op3 = button_section.operator("ntzsym.slice_z", text='', icon_value=icons['zIcon'], emboss=True)
+        
+        lay.separator(factor=sepFactor)
+
+        # -----------------------------------------------------------------------------
+        #   NEW CUT BUTTONS
+        # -----------------------------------------------------------------------------
+        main_row = lay.row(align=True)
+        main_row.scale_y = 1.5
+        
+        # Label section
+        label_section = main_row.row(align=True)
+        label_section.alignment = "RIGHT"
+        label_section.ui_units_x = labelWidth
+        label_section.label(text="Cut:")
+        
+        # Button section
+        button_section = main_row.grid_flow(row_major=True, columns=6, even_columns=True, align=True)
+        
+        # Buttons
+        op4 = button_section.operator("ntzsym.cut_x_backward", text='', icon_value=icons['xIconLeft'], emboss=True)
+        op5 = button_section.operator("ntzsym.cut_x_forward", text='', icon_value=icons['xIconRight'], emboss=True)
+        op6 = button_section.operator("ntzsym.cut_y_backward", text='', icon_value=icons['yIconLeft'], emboss=True)
+        op7 = button_section.operator("ntzsym.cut_y_forward", text='', icon_value=icons['yIconRight'], emboss=True)
+        op8 = button_section.operator("ntzsym.cut_z_backward", text='', icon_value=icons['zIconLeft'], emboss=True)
+        op9 = button_section.operator("ntzsym.cut_z_forward", text='', icon_value=icons['zIconRight'], emboss=True)
         
         lay.separator(factor=sepFactor)
 
